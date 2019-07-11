@@ -9,9 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_coal_index_dialog(object):
-    print('3333333333333333333')
     def setupUi(self, coal_index_dialog):
-        print('444444444444444')
         coal_index_dialog.setObjectName("coal_index_dialog")
         coal_index_dialog.resize(1200, 600)
         self.comboBox_3 = QtWidgets.QComboBox(coal_index_dialog)

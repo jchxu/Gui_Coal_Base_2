@@ -9,9 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
-    print('11111111111111111')
     def setupUi(self, MainWindow):
-        print('22222222222222222')
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(967, 787)
         self.centralwidget = QtWidgets.QWidget(MainWindow)

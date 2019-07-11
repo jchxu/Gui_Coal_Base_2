@@ -94,12 +94,12 @@ class Main_Window(QtWidgets.QMainWindow,Ui_MainWindow):
 
 ### 分品种煤质指标数据窗口 ###
 class Coal_Index_Window(QDialog):
-    print('555555555555555555555')
     def __init__(self):
         QDialog.__init__(self)
         self.child = Ui_coal_index_dialog()
         self.child.setupUi(self)
-        print('66666666666666')
+    def OPEN(self):
+        self.show()
     # 根据已选下拉列表筛选并显示数据
     def screening_btn_click(self):
         # 获取分品种分时间段煤种数据
@@ -164,6 +164,8 @@ class Base_Coal_Window(QDialog):
         QDialog.__init__(self)
         self.child = Ui_base_coal_dialog()
         self.child.setupUi(self)
+    def OPEN(self):
+        self.show()
     # 根据已选下拉列表筛选并显示数据
     def screening_btn_click(self):
         # 获取基础煤种数据
@@ -232,6 +234,8 @@ class Classic_Coal_Window(QDialog):
         QDialog.__init__(self)
         self.child = Ui_classic_coal_dialog()
         self.child.setupUi(self)
+    def OPEN(self):
+        self.show()
     # 根据已选下拉列表筛选并显示数据
     def screening_btn_click(self):
         ## 获取经典煤种数据
@@ -301,6 +305,8 @@ class New_Coal_Window(QDialog):
         QDialog.__init__(self)
         self.child = Ui_new_coal_dialog()
         self.child.setupUi(self)
+    def OPEN(self):
+        self.show()
     # 根据已选下拉列表筛选并显示数据
     def screening_btn_click(self):
         ## 获取新煤种数据
@@ -368,6 +374,8 @@ class Mine_Info_Window(QDialog):
         QDialog.__init__(self)
         self.child = Ui_mine_info_dialog()
         self.child.setupUi(self)
+    def OPEN(self):
+        self.show()
 
 ### 煤种指标质量变化趋势窗口 ###
 class Index_Trend_Window(QDialog):
@@ -375,7 +383,8 @@ class Index_Trend_Window(QDialog):
         QDialog.__init__(self)
         self.child = Ui_index_trend_dialog()
         self.child.setupUi(self)
-
+    def OPEN(self):
+        self.show()
     def screening_btn_click(self):
         # 获取分时间质量变化数据
         if os.path.exists('原始数据.csv'):
@@ -454,12 +463,12 @@ if __name__ == "__main__":
     NewCoalWindow = New_Coal_Window()
     MineInfoWindow = Mine_Info_Window()
     IndexTrendWindow = Index_Trend_Window()
-    MainWindow.coal_index.clicked.connect(CoalIndexWindow.show)
-    MainWindow.base_coal.clicked.connect(BaseCoalWindow.show)
-    MainWindow.classic_coal.clicked.connect(ClassicCoalWindow.show)
-    MainWindow.new_coal.clicked.connect(NewCoalWindow.show)
-    MainWindow.mine_info.clicked.connect(MineInfoWindow.show)
-    MainWindow.index_trend.clicked.connect(IndexTrendWindow.show)
+    MainWindow.coal_index.clicked.connect(CoalIndexWindow.OPEN)
+    MainWindow.base_coal.clicked.connect(BaseCoalWindow.OPEN)
+    MainWindow.classic_coal.clicked.connect(ClassicCoalWindow.OPEN)
+    MainWindow.new_coal.clicked.connect(NewCoalWindow.OPEN)
+    MainWindow.mine_info.clicked.connect(MineInfoWindow.OPEN)
+    MainWindow.index_trend.clicked.connect(IndexTrendWindow.OPEN)
 
     ImportWindow.show()     #程序启动默认显示“导入数据”窗口
     sys.exit(app.exec_())
