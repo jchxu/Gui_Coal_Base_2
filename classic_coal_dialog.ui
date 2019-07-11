@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>classic_coal_dialog</class>
+ <widget class="QDialog" name="classic_coal_dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>标杆煤种库</string>
+  </property>
+  <widget class="QComboBox" name="comboBox_3">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>120</y>
+     <width>120</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <item>
+    <property name="text">
+     <string>所有</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1985-1990</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1991-1995</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1996-1998</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1999-2002</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2003-2005</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2006-2010</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2011-2015</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2016</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2017</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2018</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2019</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>240</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>14</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>热强度</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox_6">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>360</y>
+     <width>120</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <item>
+    <property name="text">
+     <string>所有</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>特高</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>高</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>中</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>低</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>特低</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPushButton" name="screening_btn">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>480</y>
+     <width>170</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>筛选</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>41</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>14</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>煤种</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>360</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>14</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>灰分</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>300</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>14</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>硬度</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox_4">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>240</y>
+     <width>120</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <item>
+    <property name="text">
+     <string>所有</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>A级</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>B级</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>C级</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="comboBox_7">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>420</y>
+     <width>120</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <item>
+    <property name="text">
+     <string>所有</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>特高</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>高</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>中</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>低</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>特低</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>标杆煤种筛选条件</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>420</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>14</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>硫分</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox_5">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>300</y>
+     <width>120</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <item>
+    <property name="text">
+     <string>所有</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>硬煤</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>半硬优</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>半硬</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>半软</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>软煤</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="comboBox_2">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>60</y>
+     <width>120</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <item>
+    <property name="text">
+     <string>所有</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>焦煤</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>肥煤</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>气煤</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1/3焦煤</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>瘦煤</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>120</y>
+     <width>101</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>14</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>数据年份</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>180</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>14</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>煤质分级</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox_8">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>180</y>
+     <width>120</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <item>
+    <property name="text">
+     <string>所有</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>特等</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>优质</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>中等</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>一般</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QTableWidget" name="result_table">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>60</y>
+     <width>961</width>
+     <height>451</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>宋体</family>
+    </font>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustToContents</enum>
+   </property>
+   <property name="alternatingRowColors">
+    <bool>true</bool>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::ExtendedSelection</enum>
+   </property>
+   <property name="sortingEnabled">
+    <bool>true</bool>
+   </property>
+   <attribute name="verticalHeaderCascadingSectionResizes">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QLabel" name="label_num">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>520</y>
+     <width>151</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>新宋体</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>screening_btn</sender>
+   <signal>clicked()</signal>
+   <receiver>classic_coal_dialog</receiver>
+   <slot>screening_btn_click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>143</x>
+     <y>485</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>242</x>
+     <y>487</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>screening_btn_click()</slot>
+ </slots>
+</ui>
