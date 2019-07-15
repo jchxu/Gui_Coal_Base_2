@@ -76,8 +76,8 @@ class Import_Window(QtWidgets.QMainWindow,Ui_Import_Window):
             ImportWindow.close()    #关闭数据导入窗口
         else:
             print('缺少原始数据csv文件,请先导入数据!')
-            QMessageBox.warning(self, "缺少原始数据", "缺少原始数据csv文件,请先导入数据!")
-            exit()
+            QMessageBox.warning(self, "缺少原始数据", "缺少原始数据,请先导入数据!")
+            #exit()
 
 ### 数据库程序的主界面 ###
 class Main_Window(QtWidgets.QMainWindow,Ui_MainWindow):
@@ -100,7 +100,10 @@ class Coal_Index_Window(QDialog):
         df_yearregion = mean_by_yearregion(df_origin)
         df = init_level(df_yearregion)  # 5个指标分级
         df.to_csv('分品种分级数据.csv', encoding='gb2312', index=0)
-        self.show()
+        if (df.empty):
+            QMessageBox.warning(self, "未筛选出分品种数据", "未筛选出分品种煤质指标数据.")
+        else:
+            self.show()
     # 分品种指标库中的指标筛选按钮
     def screening_btn_click(self):
         coal_file = open('分品种分级数据.csv')
@@ -167,7 +170,7 @@ class Base_Coal_Window(QDialog):
             base_dfs = mean_by_yearregion(base_dfs)
             df = init_level(base_dfs)  # 5个指标分级
             df.to_csv('基础煤种分级数据.csv', encoding='gb2312', index=0)
-        self.show()
+            self.show()
     # 根据下拉列表中的数值筛选数据
     def screening_btn_click(self):
         base_file = open('基础煤种分级数据.csv')
@@ -234,7 +237,7 @@ class Classic_Coal_Window(QDialog):
             QMessageBox.warning(self, "无标杆煤种", "当前数据中未筛选出标杆煤种数据!")
         else:
             df.to_csv('标杆煤种分级数据.csv', encoding='gb2312', index=0)
-        self.show()
+            self.show()
     # 根据已选下拉列表筛选并显示数据
     def screening_btn_click(self):
         classic_file = open('标杆煤种分级数据.csv')
@@ -299,7 +302,7 @@ class New_Coal_Window(QDialog):
         else:
             df = init_level(new_dfs)  # 5个指标分级
             df.to_csv('新煤种原始数据.csv', encoding='gb2312', index=0)
-        self.show()
+            self.show()
     # 根据已选下拉列表筛选并显示数据
     def screening_btn_click(self):
         new_coal = open('新煤种原始数据.csv')
@@ -360,7 +363,6 @@ class Index_Trend_Window(QDialog):
         self.child = Ui_index_trend_dialog()
         self.child.setupUi(self)
     #关联打开煤质指标变化趋势操作，同时处理原始数据文件
-
     def OPEN(self):
         ## 获取煤种数据
         file_origin = open('原始数据.csv')
@@ -388,7 +390,7 @@ class Index_Trend_Window(QDialog):
         else:
             trend_df = mean_by_kind(trend_df, maincols)  # 根据煤种平均煤质指标数据
             trend_df.to_csv('煤种质量变化趋势数据.csv', encoding='gb2312', index=0)
-        self.show()
+            self.show()
 
     # 根据下拉列表中的数值筛选数据
     def screening_btn_click(self):
