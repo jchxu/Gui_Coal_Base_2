@@ -535,7 +535,6 @@ class Index_Trend_Window(QDialog):
     #    self.label.text(price*rate)
     ######################################
 
-
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
 
