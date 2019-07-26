@@ -1,6 +1,6 @@
 # coding=utf-8
 
-import sys,os,re
+import sys,os,re,time
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -96,17 +96,34 @@ class Coal_Index_Window(QDialog):
         self.child.setupUi(self)
     # 关联打开分品种指标库操作，同时处理原始数据文件
     def OPEN(self):
-        QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开分品种指标库窗口.")
         # 获取分品种分时间段煤种数据
-        file_origin = open('原始数据.csv')
-        df_origin = pd.read_csv(file_origin, encoding='utf-8')
-        df_yearregion = mean_by_yearregion(df_origin)
-        df = init_level(df_yearregion)  # 5个指标分级
-        df.to_csv('分品种分级数据.csv', encoding='gb2312', index=0)
-        if (df.empty):
-            QMessageBox.warning(self, "未筛选出分品种数据", "未筛选出分品种煤质指标数据.")
+        if os.path.exists('分品种分级数据.csv'):
+            datafiletime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(os.stat('原始数据.csv').st_mtime))
+            indexfiletime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(os.stat('分品种分级数据.csv').st_mtime))
+            if (datafiletime < indexfiletime):
+                self.show()
+            else:
+                QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开分品种指标库窗口.")
+                file_origin = open('原始数据.csv')
+                df_origin = pd.read_csv(file_origin, encoding='utf-8')
+                df_yearregion = mean_by_yearregion(df_origin)
+                df = init_level(df_yearregion)  # 5个指标分级
+                if (df.empty):
+                    QMessageBox.warning(self, "未筛选出分品种数据", "未筛选出分品种煤质指标数据.")
+                else:
+                    df.to_csv('分品种分级数据.csv', encoding='gb2312', index=0)
+                    self.show()
         else:
-            self.show()
+            QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开分品种指标库窗口.")
+            file_origin = open('原始数据.csv')
+            df_origin = pd.read_csv(file_origin, encoding='utf-8')
+            df_yearregion = mean_by_yearregion(df_origin)
+            df = init_level(df_yearregion)  # 5个指标分级
+            if (df.empty):
+                QMessageBox.warning(self, "未筛选出分品种数据", "未筛选出分品种煤质指标数据.")
+            else:
+                df.to_csv('分品种分级数据.csv', encoding='gb2312', index=0)
+                self.show()
     # 分品种指标库中的指标筛选按钮
     def screening_btn_click(self):
         coal_file = open('分品种分级数据.csv')
@@ -162,18 +179,37 @@ class Base_Coal_Window(QDialog):
         self.child.setupUi(self)
     # 关联打开基础煤种库操作，同时处理原始数据文件
     def OPEN(self):
-        file_origin = open('原始数据.csv')
-        df_origin = pd.read_csv(file_origin, encoding='utf-8')
-        QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开基础煤种库窗口.")
-        base_dfs = get_Base_coal(df_origin)  # 获取基础煤种数据
-        if (base_dfs.empty):
-            self.child.label_num.setText('无基础煤种!')
-            QMessageBox.warning(self, "无基础煤种", "当前数据中未筛选出基础煤种数据!")
+        if os.path.exists('基础煤种分级数据.csv'):
+            datafiletime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(os.stat('原始数据.csv').st_mtime))
+            basefiletime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(os.stat('基础煤种分级数据.csv').st_mtime))
+            if (datafiletime < basefiletime):
+                self.show()
+            else:
+                file_origin = open('原始数据.csv')
+                df_origin = pd.read_csv(file_origin, encoding='utf-8')
+                QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开基础煤种库窗口.")
+                base_dfs = get_Base_coal(df_origin)  # 获取基础煤种数据
+                if (base_dfs.empty):
+                    self.child.label_num.setText('无基础煤种!')
+                    QMessageBox.warning(self, "无基础煤种", "当前数据中未筛选出基础煤种数据!")
+                else:
+                    base_dfs = mean_by_yearregion(base_dfs)
+                    df = init_level(base_dfs)  # 5个指标分级
+                    df.to_csv('基础煤种分级数据.csv', encoding='gb2312', index=0)
+                    self.show()
         else:
-            base_dfs = mean_by_yearregion(base_dfs)
-            df = init_level(base_dfs)  # 5个指标分级
-            df.to_csv('基础煤种分级数据.csv', encoding='gb2312', index=0)
-            self.show()
+            file_origin = open('原始数据.csv')
+            df_origin = pd.read_csv(file_origin, encoding='utf-8')
+            QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开基础煤种库窗口.")
+            base_dfs = get_Base_coal(df_origin)  # 获取基础煤种数据
+            if (base_dfs.empty):
+                self.child.label_num.setText('无基础煤种!')
+                QMessageBox.warning(self, "无基础煤种", "当前数据中未筛选出基础煤种数据!")
+            else:
+                base_dfs = mean_by_yearregion(base_dfs)
+                df = init_level(base_dfs)  # 5个指标分级
+                df.to_csv('基础煤种分级数据.csv', encoding='gb2312', index=0)
+                self.show()
     # 根据下拉列表中的数值筛选数据
     def screening_btn_click(self):
         base_file = open('基础煤种分级数据.csv')
@@ -227,20 +263,37 @@ class Classic_Coal_Window(QDialog):
     #关联打开标杆煤种库操作，同时处理原始数据文件
     def OPEN(self):
         ## 获取标杆煤种数据
-        file_origin = open('原始数据.csv')
-        df_origin = pd.read_csv(file_origin, encoding='utf-8')
-        QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开标杆煤种库窗口.")
-        yeardfs = mean_by_year(df_origin)
-        yeardfs = init_level(yeardfs)
-        # allyearregiondfs = mean_by_yearregion(df_origin)
-        # allyearregiondfs = init_level(allyearregiondfs)   #5个指标分级
-        df = get_Classic_coal(yeardfs)  # 获取标杆煤种数据
-        if (df.empty):
-            self.child.label_num.setText('无标杆煤种!')
-            QMessageBox.warning(self, "无标杆煤种", "当前数据中未筛选出标杆煤种数据!")
+        if os.path.exists('标杆煤种分级数据.csv'):
+            datafiletime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(os.stat('原始数据.csv').st_mtime))
+            classicfiletime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(os.stat('标杆煤种分级数据.csv').st_mtime))
+            if (datafiletime < classicfiletime):
+                self.show()
+            else:
+                file_origin = open('原始数据.csv')
+                df_origin = pd.read_csv(file_origin, encoding='utf-8')
+                QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开标杆煤种库窗口.")
+                yeardfs = mean_by_year(df_origin)
+                yeardfs = init_level(yeardfs)
+                df = get_Classic_coal(yeardfs)  # 获取标杆煤种数据
+                if (df.empty):
+                    self.child.label_num.setText('无标杆煤种!')
+                    QMessageBox.warning(self, "无标杆煤种", "当前数据中未筛选出标杆煤种数据!")
+                else:
+                    df.to_csv('标杆煤种分级数据.csv', encoding='gb2312', index=0)
+                    self.show()
         else:
-            df.to_csv('标杆煤种分级数据.csv', encoding='gb2312', index=0)
-            self.show()
+            file_origin = open('原始数据.csv')
+            df_origin = pd.read_csv(file_origin, encoding='utf-8')
+            QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开标杆煤种库窗口.")
+            yeardfs = mean_by_year(df_origin)
+            yeardfs = init_level(yeardfs)
+            df = get_Classic_coal(yeardfs)  # 获取标杆煤种数据
+            if (df.empty):
+                self.child.label_num.setText('无标杆煤种!')
+                QMessageBox.warning(self, "无标杆煤种", "当前数据中未筛选出标杆煤种数据!")
+            else:
+                df.to_csv('标杆煤种分级数据.csv', encoding='gb2312', index=0)
+                self.show()
     # 根据已选下拉列表筛选并显示数据
     def screening_btn_click(self):
         classic_file = open('标杆煤种分级数据.csv')
@@ -295,17 +348,36 @@ class New_Coal_Window(QDialog):
     #关联打开新煤种库操作，同时处理原始数据文件
     def OPEN(self):
         ## 获取新煤种数据
-        file_origin = open('原始数据.csv')
-        df_origin = pd.read_csv(file_origin, encoding='utf-8')
-        QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开新煤种库窗口.")
-        new_dfs = get_New_coal(df_origin)  # 获取新煤种数据
-        if (new_dfs.empty):
-            self.child.label_num.setText('无新煤种!')
-            QMessageBox.warning(self, "无新煤种", "当前数据中未筛选出新煤种数据!")
+        filename = '新煤种原始数据.csv'
+        if os.path.exists(filename):
+            datafiletime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(os.stat('原始数据.csv').st_mtime))
+            newfiletime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(os.stat(filename).st_mtime))
+            if (datafiletime < newfiletime):
+                self.show()
+            else:
+                file_origin = open('原始数据.csv')
+                df_origin = pd.read_csv(file_origin, encoding='utf-8')
+                QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开新煤种库窗口.")
+                new_dfs = get_New_coal(df_origin)  # 获取新煤种数据
+                if (new_dfs.empty):
+                    self.child.label_num.setText('无新煤种!')
+                    QMessageBox.warning(self, "无新煤种", "当前数据中未筛选出新煤种数据!")
+                else:
+                    df = init_level(new_dfs)  # 5个指标分级
+                    df.to_csv(filename, encoding='gb2312', index=0)
+                    self.show()
         else:
-            df = init_level(new_dfs)  # 5个指标分级
-            df.to_csv('新煤种原始数据.csv', encoding='gb2312', index=0)
-            self.show()
+            file_origin = open('原始数据.csv')
+            df_origin = pd.read_csv(file_origin, encoding='utf-8')
+            QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开新煤种库窗口.")
+            new_dfs = get_New_coal(df_origin)  # 获取新煤种数据
+            if (new_dfs.empty):
+                self.child.label_num.setText('无新煤种!')
+                QMessageBox.warning(self, "无新煤种", "当前数据中未筛选出新煤种数据!")
+            else:
+                df = init_level(new_dfs)  # 5个指标分级
+                df.to_csv(filename, encoding='gb2312', index=0)
+                self.show()
     # 根据已选下拉列表筛选并显示数据
     def screening_btn_click(self):
         new_coal = open('新煤种原始数据.csv')
@@ -368,33 +440,58 @@ class Index_Trend_Window(QDialog):
     #关联打开煤质指标变化趋势操作，同时处理原始数据文件
     def OPEN(self):
         ## 获取煤种数据
-        file_origin = open('原始数据.csv')
-        df_origin = pd.read_csv(file_origin, encoding='utf-8')
-        QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开质量变化趋势窗口.")
-        # 获取分时间质量变化数据
-        if os.path.exists('原始数据.csv'):
+        filename = '煤种质量变化趋势数据.csv'
+        if os.path.exists(filename):
+            datafiletime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(os.stat('原始数据.csv').st_mtime))
+            trendfiletime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(os.stat(filename).st_mtime))
+            if (datafiletime < trendfiletime):
+                self.show()
+            else:
+                file_origin = open('原始数据.csv')
+                df_origin = pd.read_csv(file_origin, encoding='utf-8')
+                QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开质量变化趋势窗口.")
+                # 获取分时间质量变化数据
+                file_origin = open('原始数据.csv')
+                df_origin = pd.read_csv(file_origin, encoding='utf-8')
+                base_dfs = get_Base_coal(df_origin)
+                basekinds = list(set(base_dfs.煤种.tolist()))
+                maincols = ['CRI', 'CSR', 'DI150_15', 'Y', 'G', 'TD', 'lgMF', 'Ad', 'Std', 'Vd', 'Pd', 'K2O_Na2O']
+                if (base_dfs.empty):
+                    print('无基础煤种!\n煤质指标质量变化趋势仅针对基础煤种.')
+                    QMessageBox.warning(self, "无基础煤种", "当前数据中未筛选出基础煤种数据!\n煤质指标质量变化趋势仅针对基础煤种.")
+                    exit()
+                else:
+                    trend_df = get_Trend_coal(base_dfs)
+                if (trend_df.empty):
+                    print('无煤质指标趋势数据!')
+                    QMessageBox.warning(self, "无煤质指标趋势数据", "当前数据中未筛选出煤质指标趋势数据!")
+                else:
+                    trend_df = mean_by_kind(trend_df, maincols)  # 根据煤种平均煤质指标数据
+                    trend_df.to_csv(filename, encoding='gb2312', index=0)
+                    self.show()
+        else:
             file_origin = open('原始数据.csv')
             df_origin = pd.read_csv(file_origin, encoding='utf-8')
-        else:
-            print('缺少原始数据csv文件,请先导入数据！')
-            exit()
-        base_dfs = get_Base_coal(df_origin)
-        basekinds = list(set(base_dfs.煤种.tolist()))
-        maincols = ['CRI', 'CSR', 'DI150_15', 'Y', 'G', 'TD', 'lgMF', 'Ad', 'Std', 'Vd', 'Pd', 'K2O_Na2O']
-        if (base_dfs.empty):
-            print('无基础煤种!\n煤质指标质量变化趋势仅针对基础煤种.')
-            QMessageBox.warning(self, "无基础煤种", "当前数据中未筛选出基础煤种数据!\n煤质指标质量变化趋势仅针对基础煤种.")
-            exit()
-        else:
-            trend_df = get_Trend_coal(base_dfs)
-        if (trend_df.empty):
-            print('无煤质指标趋势数据!')
-            QMessageBox.warning(self, "无煤质指标趋势数据", "当前数据中未筛选出煤质指标趋势数据!")
-        else:
-            trend_df = mean_by_kind(trend_df, maincols)  # 根据煤种平均煤质指标数据
-            trend_df.to_csv('煤种质量变化趋势数据.csv', encoding='gb2312', index=0)
-            self.show()
-
+            QMessageBox.information(self, "正在初始化数据", "正在初始化数据...\n请点击OK，数据初始化完成后将打开质量变化趋势窗口.")
+            # 获取分时间质量变化数据
+            file_origin = open('原始数据.csv')
+            df_origin = pd.read_csv(file_origin, encoding='utf-8')
+            base_dfs = get_Base_coal(df_origin)
+            basekinds = list(set(base_dfs.煤种.tolist()))
+            maincols = ['CRI', 'CSR', 'DI150_15', 'Y', 'G', 'TD', 'lgMF', 'Ad', 'Std', 'Vd', 'Pd', 'K2O_Na2O']
+            if (base_dfs.empty):
+                print('无基础煤种!\n煤质指标质量变化趋势仅针对基础煤种.')
+                QMessageBox.warning(self, "无基础煤种", "当前数据中未筛选出基础煤种数据!\n煤质指标质量变化趋势仅针对基础煤种.")
+                exit()
+            else:
+                trend_df = get_Trend_coal(base_dfs)
+            if (trend_df.empty):
+                print('无煤质指标趋势数据!')
+                QMessageBox.warning(self, "无煤质指标趋势数据", "当前数据中未筛选出煤质指标趋势数据!")
+            else:
+                trend_df = mean_by_kind(trend_df, maincols)  # 根据煤种平均煤质指标数据
+                trend_df.to_csv(filename, encoding='gb2312', index=0)
+                self.show()
     # 根据下拉列表中的数值筛选数据
     def screening_btn_click(self):
         coal_trend = open('煤种质量变化趋势数据.csv')
