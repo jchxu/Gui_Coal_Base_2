@@ -512,7 +512,7 @@ class Index_Trend_Window(QDialog):
                 ax.set_xlabel('时间段/年份')     # 设置X轴标题
                 ax.set_ylabel(maincols[i])      # 设置Y轴标题
                 plt.xticks(xlocs,xlabels,rotation=90)       # 设置X轴刻度文本
-                plt.plot(df.index,df[maincols[i]],linestyle='dashed', marker='o',label=maincols[i],zorder=1)
+                plt.plot(df.index.tolist(),df[maincols[i]].tolist(),linestyle='dashed', marker='o',label=maincols[i],zorder=1)
                 if '1999-2002' in xlabels:
                     specific_df = (df[df.年份 == '1999-2002']).reset_index()
                     yearindex = xlabels.index('1999-2002')
