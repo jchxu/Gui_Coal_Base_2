@@ -163,6 +163,6 @@ class Ui_MainWindow(object):
         self.new_coal.setText(_translate("MainWindow", "新煤种库"))
         self.mine_info.setText(_translate("MainWindow", "矿山信息"))
         self.index_trend.setText(_translate("MainWindow", "质量变化趋势分析"))
-        self.label_8.setText(_translate("MainWindow", "煤炭资源数据库 v2"))
+        self.label_8.setText(_translate("MainWindow", "煤炭资源数据库"))
         self.quit_btn.setText(_translate("MainWindow", "退出"))
 
